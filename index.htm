@@ -1,0 +1,791 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hormone Symptom Checker — Hormone Harmony</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF6F0;
+    --blush: #E8C4B0;
+    --rose: #C4776A;
+    --deep: #3D2B2B;
+    --sage: #8A9E8C;
+    --sage-light: #C8D8C9;
+    --warm-white: #FDF9F5;
+    --gold: #C9A96E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--deep);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 10%, rgba(232,196,176,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(138,158,140,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 50% 50%, rgba(201,169,110,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* COVER PAGE */
+  .cover {
+    text-align: center;
+    padding: 60px 20px 50px;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .brand-pill {
+    display: inline-block;
+    background: var(--sage-light);
+    color: var(--sage);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+  }
+
+  .cover h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 7vw, 58px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--deep);
+    margin-bottom: 12px;
+  }
+
+  .cover h1 em {
+    font-style: italic;
+    color: var(--rose);
+  }
+
+  .cover .subtitle {
+    font-size: 14px;
+    color: #7A6060;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 18px auto 36px;
+    font-weight: 300;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 0 auto 36px;
+  }
+
+  .cover-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 12px;
+    padding: 12px 22px;
+    font-size: 13px;
+    color: #7A6060;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 20px rgba(61,43,43,0.05);
+  }
+
+  .cover-badge span { font-size: 18px; }
+
+  .btn-start {
+    display: inline-block;
+    background: var(--rose);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 16px 42px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 24px rgba(196,119,106,0.35);
+  }
+
+  .btn-start:hover {
+    background: #B5665A;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(196,119,106,0.4);
+  }
+
+  .cover-note {
+    font-size: 11px;
+    color: #B0A0A0;
+    margin-top: 14px;
+    letter-spacing: 0.03em;
+  }
+
+  /* INTRO */
+  .intro-box {
+    background: white;
+    border-radius: 20px;
+    padding: 36px 40px;
+    margin-bottom: 32px;
+    border-left: 3px solid var(--rose);
+    box-shadow: 0 2px 30px rgba(61,43,43,0.06);
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .intro-box p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #5A4545;
+    font-weight: 300;
+  }
+
+  .intro-box p + p { margin-top: 14px; }
+
+  .intro-box strong { color: var(--rose); font-weight: 500; }
+
+  /* SECTIONS */
+  .section {
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .section-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--deep);
+    line-height: 1.2;
+  }
+
+  .section-subtitle {
+    font-size: 12px;
+    color: #A09090;
+    font-weight: 300;
+    margin-top: 2px;
+    letter-spacing: 0.03em;
+  }
+
+  /* CHECKLIST CARDS */
+  .checklist {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(61,43,43,0.05);
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 22px;
+    border-bottom: 1px solid rgba(61,43,43,0.05);
+    cursor: pointer;
+    transition: background 0.2s ease;
+    user-select: none;
+  }
+
+  .check-item:last-child { border-bottom: none; }
+  .check-item:hover { background: rgba(232,196,176,0.1); }
+  .check-item.checked { background: rgba(138,158,140,0.08); }
+
+  .checkbox {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--blush);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 13px;
+  }
+
+  .check-item.checked .checkbox {
+    background: var(--sage);
+    border-color: var(--sage);
+    color: white;
+  }
+
+  .check-label {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #5A4545;
+    font-weight: 300;
+  }
+
+  .check-item.checked .check-label {
+    color: #3D5E3F;
+  }
+
+  /* SCORE BAR */
+  .score-tracker {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin: 28px 0;
+    box-shadow: 0 2px 20px rgba(61,43,43,0.05);
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .score-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .score-label span:first-child {
+    font-size: 13px;
+    color: #7A6060;
+    font-weight: 400;
+  }
+
+  .score-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--deep);
+  }
+
+  .score-bar-bg {
+    height: 8px;
+    background: var(--cream);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(to right, var(--sage), var(--rose));
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    width: 0%;
+  }
+
+  .score-hint {
+    font-size: 11px;
+    color: #B0A0A0;
+    font-style: italic;
+  }
+
+  /* RESULTS */
+  .results-panel {
+    display: none;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .results-panel.visible { display: block; }
+
+  .result-card {
+    border-radius: 20px;
+    padding: 36px 40px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-card.mild {
+    background: linear-gradient(135deg, #E8F4E9 0%, #F0F7F1 100%);
+    border: 1px solid rgba(138,158,140,0.3);
+  }
+
+  .result-card.moderate {
+    background: linear-gradient(135deg, #FEF3EC 0%, #FDF6F0 100%);
+    border: 1px solid rgba(232,196,176,0.5);
+  }
+
+  .result-card.significant {
+    background: linear-gradient(135deg, #FDEEE9 0%, #FDF4F2 100%);
+    border: 1px solid rgba(196,119,106,0.3);
+  }
+
+  .result-emoji {
+    font-size: 40px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .result-level {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--deep);
+  }
+
+  .result-desc {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #5A4545;
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+
+  .result-desc strong { font-weight: 500; }
+
+  .result-list {
+    list-style: none;
+    margin-bottom: 24px;
+  }
+
+  .result-list li {
+    font-size: 13px;
+    color: #5A4545;
+    padding: 7px 0;
+    padding-left: 20px;
+    position: relative;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .result-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--rose);
+    font-weight: 500;
+  }
+
+  .cta-box {
+    background: var(--deep);
+    color: white;
+    border-radius: 16px;
+    padding: 32px 36px;
+    text-align: center;
+    margin-top: 28px;
+  }
+
+  .cta-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .cta-box h3 em { font-style: italic; color: var(--blush); }
+
+  .cta-box p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    font-weight: 300;
+  }
+
+  .btn-cta {
+    display: inline-block;
+    background: var(--rose);
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 15px 38px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(196,119,106,0.4);
+    text-decoration: none;
+  }
+
+  .btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(196,119,106,0.5);
+  }
+
+  .btn-reset {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6);
+    font-size: 12px;
+    padding: 10px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: all 0.2s;
+    display: block;
+    margin: 12px auto 0;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-reset:hover { border-color: rgba(255,255,255,0.4); color: white; }
+
+  /* PAGE SYSTEM */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding-top: 40px;
+    font-size: 11px;
+    color: #C0B0B0;
+    letter-spacing: 0.05em;
+  }
+
+  .footer strong { color: var(--rose); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section:nth-child(1) { animation-delay: 0.05s; }
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.15s; }
+  .section:nth-child(4) { animation-delay: 0.2s; }
+  .section:nth-child(5) { animation-delay: 0.25s; }
+  .section:nth-child(6) { animation-delay: 0.3s; }
+  .section:nth-child(7) { animation-delay: 0.35s; }
+
+  .ornament {
+    text-align: center;
+    color: var(--gold);
+    font-size: 22px;
+    margin: 32px 0;
+    opacity: 0.5;
+    letter-spacing: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- COVER PAGE -->
+  <div id="page-cover" class="page active">
+    <div class="cover">
+      <div class="brand-pill">Hormone Harmony</div>
+      <h1>Is It Stress —<br>or Your <em>Hormones?</em></h1>
+      <div class="divider"></div>
+      <p class="subtitle">The 30-second symptom checker every busy woman needs. Find out what's really happening inside your body — in plain English.</p>
+      <div class="cover-badge">
+        <span>🔬</span> Science-backed · Free · Takes under 2 minutes
+      </div>
+      <br>
+      <button class="btn-start" onclick="showPage('page-checker')">Start My Symptom Check →</button>
+      <p class="cover-note">No sign-up required to begin</p>
+    </div>
+  </div>
+
+  <!-- CHECKER PAGE -->
+  <div id="page-checker" class="page">
+
+    <div class="intro-box">
+      <p>You're doing everything "right" — eating clean, working out, pushing through. But something still feels <strong>off</strong>. The exhaustion, the brain fog, the overwhelm... it's not all in your head.</p>
+      <p>Check every symptom you've experienced in the <strong>last 3 months</strong>. Be honest with yourself — this is for you.</p>
+    </div>
+
+    <!-- SCORE TRACKER -->
+    <div class="score-tracker">
+      <div class="score-label">
+        <span>Symptoms checked</span>
+        <span class="score-number"><span id="score-display">0</span> <span style="font-size:14px;color:#A09090;">/ 30</span></span>
+      </div>
+      <div class="score-bar-bg">
+        <div class="score-bar-fill" id="score-bar"></div>
+      </div>
+      <div class="score-hint" id="score-hint">Check the symptoms you recognise in yourself ↓</div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#FEF0EC;">🔋</div>
+        <div>
+          <div class="section-title">Energy & Fatigue</div>
+          <div class="section-subtitle">How your body manages fuel and rest</div>
+        </div>
+      </div>
+      <div class="checklist">
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I feel exhausted even after a full night's sleep</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I hit a wall of fatigue in the afternoon that coffee can't fix</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I wake up tired no matter how many hours I sleep</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">Simple tasks feel physically draining</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">My energy is unpredictable — good one day, crashed the next</div></div>
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#EFF4F0;">🧠</div>
+        <div>
+          <div class="section-title">Brain & Mental Clarity</div>
+          <div class="section-subtitle">Cognitive function and focus</div>
+        </div>
+      </div>
+      <div class="checklist">
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I walk into a room and forget why I'm there</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I struggle to concentrate or stay focused on tasks</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I feel mentally "foggy" or like I'm thinking through cotton wool</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I forget words mid-sentence more than I used to</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">Making decisions feels overwhelming or exhausting</div></div>
+      </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#FDF0F5;">💭</div>
+        <div>
+          <div class="section-title">Mood & Emotions</div>
+          <div class="section-subtitle">Your emotional landscape day-to-day</div>
+        </div>
+      </div>
+      <div class="checklist">
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I feel irritable or snappy over small things</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I feel anxious without a clear reason</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I cry more easily than I used to</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I feel a low-grade sadness or flatness I can't shake</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I feel overwhelmed by my to-do list even when it's manageable</div></div>
+      </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#F4F0FD;">😴</div>
+        <div>
+          <div class="section-title">Sleep</div>
+          <div class="section-subtitle">Quality and patterns of your rest</div>
+        </div>
+      </div>
+      <div class="checklist">
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I struggle to fall asleep even when I'm exhausted</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I wake between 2–4am and can't get back to sleep</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I have vivid or disturbing dreams</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I feel wired at night but exhausted during the day</div></div>
+      </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#F0F4EC;">⚖️</div>
+        <div>
+          <div class="section-title">Body & Weight</div>
+          <div class="section-subtitle">Physical changes you may have noticed</div>
+        </div>
+      </div>
+      <div class="checklist">
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I'm gaining weight especially around my belly despite clean eating</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I feel bloated almost daily</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">My hair is thinner or I'm losing more than usual</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">My skin has changed — more breakouts, dryness or dullness</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I crave sugar or carbs intensely, especially in the afternoon</div></div>
+      </div>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon" style="background:#FEF5EC;">🌡️</div>
+        <div>
+          <div class="section-title">Cycle & Hormonal Signals</div>
+          <div class="section-subtitle">Your body's direct hormonal communication</div>
+        </div>
+      </div>
+      <div class="checklist">
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">My periods have become irregular, heavier or more painful</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">My PMS has gotten worse — mood, cramps or breast tenderness</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I experience hot flushes or night sweats</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">My libido has dropped significantly</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I feel like a different person in the week before my period</div></div>
+      </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div style="text-align:center; margin-top: 10px; animation: fadeUp 0.6s ease both;">
+      <button class="btn-start" onclick="showResults()">See My Results →</button>
+      <p class="cover-note" style="margin-top:10px;">Your answers are private and never stored</p>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results-panel" id="results-panel">
+
+      <!-- MILD -->
+      <div id="result-mild" class="result-card mild" style="display:none; margin-top:40px;">
+        <span class="result-emoji">🌿</span>
+        <div class="result-level">Early Hormonal Signals</div>
+        <p class="result-desc">You checked <strong id="mild-score"></strong> symptoms. Your body is sending early signals worth paying attention to. These signs are common — but common doesn't mean normal. The sooner you understand what's happening, the easier it is to course-correct.</p>
+        <ul class="result-list">
+          <li>Your hormones may be starting to shift — often years before you'd expect</li>
+          <li>Stress hormones (cortisol) are likely playing a bigger role than you realise</li>
+          <li>Small, targeted changes now can prevent bigger imbalances later</li>
+        </ul>
+      </div>
+
+      <!-- MODERATE -->
+      <div id="result-moderate" class="result-card moderate" style="display:none; margin-top:40px;">
+        <span class="result-emoji">🌸</span>
+        <div class="result-level">Noticeable Hormonal Imbalance</div>
+        <p class="result-desc">You checked <strong id="mod-score"></strong> symptoms. What you're feeling is real, and it has a name. Your body isn't failing you — it's communicating loudly. This level of imbalance affects thousands of women who are told it's "just stress" or "just aging." It's not. There are clear hormonal patterns behind what you're experiencing.</p>
+        <ul class="result-list">
+          <li>Multiple hormone systems are likely involved — not just one</li>
+          <li>Your cortisol, estrogen and/or thyroid may all be out of sync</li>
+          <li>Your symptoms will worsen if left unaddressed — but they are very reversible</li>
+          <li>You are not losing your mind — your body is asking for support</li>
+        </ul>
+      </div>
+
+      <!-- SIGNIFICANT -->
+      <div id="result-significant" class="result-card significant" style="display:none; margin-top:40px;">
+        <span class="result-emoji">🔴</span>
+        <div class="result-level">Significant Hormonal Disruption</div>
+        <p class="result-desc">You checked <strong id="sig-score"></strong> symptoms. First — you are not broken, and you are not alone. What you're living with daily is genuinely hard, and the fact that you're looking for answers shows incredible strength. Your body is not betraying you. It is overwhelmed, and it needs targeted, compassionate support — not more willpower.</p>
+        <ul class="result-list">
+          <li>Your adrenal, reproductive and metabolic hormones are likely all dysregulated</li>
+          <li>Your body has been running on empty for a long time — recovery is possible but takes time</li>
+          <li>Generic advice ("just eat better, sleep more") will not be enough at this stage</li>
+          <li>You deserve real answers, not another "it's normal for your age" dismissal</li>
+          <li>The right information now can genuinely change the quality of your daily life</li>
+        </ul>
+      </div>
+
+      <!-- CTA BOX -->
+      <div class="cta-box" id="cta-box" style="display:none;">
+        <h3>Ready for <em>Real Answers?</em></h3>
+        <p>Hormone Harmony breaks down exactly what's happening inside your body — in clear, simple language. No overwhelming protocols. No medical jargon. Just the truth your body has been trying to tell you.</p>
+        <a class="btn-cta" href="#">Get Hormone Harmony →</a>
+        <button class="btn-reset" onclick="resetChecker()">↺ Retake the checker</button>
+      </div>
+
+    </div>
+
+  </div><!-- end page-checker -->
+
+  <div class="footer">
+    <p>Created with care by <strong>Hormone Harmony</strong> · For educational purposes only<br>This checker does not constitute medical advice. Always consult your healthcare provider.</p>
+  </div>
+
+</div><!-- end container -->
+
+<script>
+  let total = 0;
+  const totalSymptoms = 30;
+
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggle(el) {
+    el.classList.toggle('checked');
+    const cb = el.querySelector('.checkbox');
+    if (el.classList.contains('checked')) {
+      cb.textContent = '✓';
+      total++;
+    } else {
+      cb.textContent = '';
+      total--;
+    }
+    updateScore();
+  }
+
+  function updateScore() {
+    document.getElementById('score-display').textContent = total;
+    const pct = (total / totalSymptoms) * 100;
+    document.getElementById('score-bar').style.width = pct + '%';
+
+    const hint = document.getElementById('score-hint');
+    if (total === 0) hint.textContent = 'Check the symptoms you recognise in yourself ↓';
+    else if (total <= 5) hint.textContent = 'Keep going — be honest with yourself';
+    else if (total <= 12) hint.textContent = 'Your body is clearly communicating something important';
+    else if (total <= 20) hint.textContent = 'You\'ve been carrying a lot — you deserve answers';
+    else hint.textContent = 'This is significant. You are not alone in this.';
+  }
+
+  function showResults() {
+    const panel = document.getElementById('results-panel');
+    panel.classList.add('visible');
+
+    document.getElementById('result-mild').style.display = 'none';
+    document.getElementById('result-moderate').style.display = 'none';
+    document.getElementById('result-significant').style.display = 'none';
+
+    if (total <= 7) {
+      const el = document.getElementById('result-mild');
+      el.style.display = 'block';
+      document.getElementById('mild-score').textContent = total + ' symptoms';
+    } else if (total <= 18) {
+      const el = document.getElementById('result-moderate');
+      el.style.display = 'block';
+      document.getElementById('mod-score').textContent = total + ' symptoms';
+    } else {
+      const el = document.getElementById('result-significant');
+      el.style.display = 'block';
+      document.getElementById('sig-score').textContent = total + ' symptoms';
+    }
+
+    document.getElementById('cta-box').style.display = 'block';
+
+    setTimeout(() => {
+      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+
+  function resetChecker() {
+    total = 0;
+    document.querySelectorAll('.check-item').forEach(el => {
+      el.classList.remove('checked');
+      el.querySelector('.checkbox').textContent = '';
+    });
+    updateScore();
+    document.getElementById('results-panel').classList.remove('visible');
+    document.getElementById('result-mild').style.display = 'none';
+    document.getElementById('result-moderate').style.display = 'none';
+    document.getElementById('result-significant').style.display = 'none';
+    document.getElementById('cta-box').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
