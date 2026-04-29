@@ -53,7 +53,10 @@
     z-index: 1;
   }
 
-  /* ── COVER ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* COVER */
   .cover {
     text-align: center;
     padding: 64px 20px 56px;
@@ -83,10 +86,7 @@
     margin-bottom: 8px;
   }
 
-  .cover h1 em {
-    font-style: italic;
-    color: var(--rose-gold);
-  }
+  .cover h1 em { font-style: italic; color: var(--rose-gold); }
 
   .divider {
     display: flex;
@@ -100,19 +100,11 @@
     content: '';
     width: 60px;
     height: 1px;
-    background: linear-gradient(to right, transparent, var(--rose-gold));
   }
 
-  .divider::after {
-    background: linear-gradient(to left, transparent, var(--rose-gold));
-  }
-
-  .divider-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--rose-gold);
-  }
+  .divider::before { background: linear-gradient(to right, transparent, var(--rose-gold)); }
+  .divider::after  { background: linear-gradient(to left,  transparent, var(--rose-gold)); }
+  .divider-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rose-gold); }
 
   .cover .subtitle {
     font-size: 15px;
@@ -161,19 +153,11 @@
     box-shadow: 0 6px 28px rgba(107,78,140,0.35);
   }
 
-  .btn-start:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 36px rgba(107,78,140,0.45);
-  }
+  .btn-start:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(107,78,140,0.45); }
 
-  .cover-note {
-    font-size: 11px;
-    color: var(--text-soft);
-    margin-top: 14px;
-    letter-spacing: 0.04em;
-  }
+  .cover-note { font-size: 11px; color: var(--text-soft); margin-top: 14px; letter-spacing: 0.04em; }
 
-  /* ── INTRO BOX ── */
+  /* INTRO */
   .intro-box {
     background: var(--white);
     border-radius: 20px;
@@ -181,432 +165,205 @@
     margin-bottom: 28px;
     border-left: 4px solid var(--purple-light);
     box-shadow: 0 4px 30px rgba(107,78,140,0.08);
-    animation: fadeUp 0.6s ease both;
   }
 
-  .intro-box p {
-    font-size: 15px;
-    line-height: 1.85;
-    color: var(--text-mid);
-    font-weight: 400;
-  }
-
+  .intro-box p { font-size: 15px; line-height: 1.85; color: var(--text-mid); }
   .intro-box p + p { margin-top: 12px; }
+  .intro-box strong { color: var(--purple); font-weight: 600; }
 
-  .intro-box strong {
-    color: var(--purple);
-    font-weight: 600;
-  }
-
-  /* ── SCORE TRACKER ── */
+  /* SCORE */
   .score-tracker {
     background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple) 100%);
     border-radius: 20px;
     padding: 26px 32px;
     margin: 0 0 28px;
     box-shadow: 0 6px 32px rgba(107,78,140,0.3);
-    animation: fadeUp 0.6s ease both;
     color: white;
   }
 
-  .score-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-  }
+  .score-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .score-label-text { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+  .score-number { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: white; line-height: 1; }
+  .score-number span { font-size: 14px; color: rgba(255,255,255,0.5); font-family: 'Nunito', sans-serif; font-weight: 400; }
+  .score-bar-bg { height: 8px; background: rgba(255,255,255,0.2); border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
+  .score-bar-fill { height: 100%; border-radius: 10px; background: linear-gradient(to right, var(--sage-light), var(--rose-gold)); transition: width 0.5s cubic-bezier(0.4,0,0.2,1); width: 0%; }
+  .score-hint { font-size: 12px; color: rgba(255,255,255,0.6); font-style: italic; }
 
-  .score-label-text {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-  }
+  /* SECTIONS */
+  .section { margin-bottom: 24px; animation: fadeUp 0.6s ease both; }
+  .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .section-icon { width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; color: var(--purple-deep); }
+  .section-subtitle { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
 
-  .score-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px;
-    font-weight: 700;
-    color: white;
-    line-height: 1;
-  }
-
-  .score-number span {
-    font-size: 14px;
-    color: rgba(255,255,255,0.5);
-    font-family: 'Nunito', sans-serif;
-    font-weight: 400;
-  }
-
-  .score-bar-bg {
-    height: 8px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 10px;
-  }
-
-  .score-bar-fill {
-    height: 100%;
-    border-radius: 10px;
-    background: linear-gradient(to right, var(--sage-light), var(--rose-gold));
-    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
-    width: 0%;
-  }
-
-  .score-hint {
-    font-size: 12px;
-    color: rgba(255,255,255,0.6);
-    font-style: italic;
-  }
-
-  /* ── SECTIONS ── */
-  .section {
-    margin-bottom: 24px;
-    animation: fadeUp 0.6s ease both;
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 14px;
-  }
-
-  .section-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    flex-shrink: 0;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--purple-deep);
-  }
-
-  .section-subtitle {
-    font-size: 12px;
-    color: var(--text-soft);
-    font-weight: 400;
-    margin-top: 2px;
-  }
-
-  /* ── CHECKLIST ── */
-  .checklist {
-    background: var(--white);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 3px 20px rgba(107,78,140,0.07);
-    border: 1px solid rgba(107,78,140,0.08);
-  }
-
-  .check-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 16px 22px;
-    border-bottom: 1px solid rgba(107,78,140,0.06);
-    cursor: pointer;
-    transition: background 0.2s ease;
-    user-select: none;
-  }
-
+  /* CHECKLIST */
+  .checklist { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 3px 20px rgba(107,78,140,0.07); border: 1px solid rgba(107,78,140,0.08); }
+  .check-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px 22px; border-bottom: 1px solid rgba(107,78,140,0.06); cursor: pointer; transition: background 0.2s ease; user-select: none; }
   .check-item:last-child { border-bottom: none; }
-
   .check-item:hover { background: var(--purple-pale); }
-
   .check-item.checked { background: var(--sage-pale); }
+  .checkbox { width: 24px; height: 24px; border-radius: 7px; border: 2px solid rgba(107,78,140,0.25); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; font-size: 13px; color: white; font-weight: 700; }
+  .check-item.checked .checkbox { background: var(--sage); border-color: var(--sage); }
+  .check-label { font-size: 14px; line-height: 1.65; color: var(--text-mid); padding-top: 2px; }
+  .check-item.checked .check-label { color: #3D6640; font-weight: 500; }
 
-  .checkbox {
-    width: 24px;
-    height: 24px;
-    border-radius: 7px;
-    border: 2px solid rgba(107,78,140,0.25);
-    flex-shrink: 0;
-    margin-top: 1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    font-size: 13px;
-    color: white;
-    font-weight: 700;
-  }
+  /* ORNAMENT */
+  .ornament { text-align: center; margin: 32px 0 24px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .ornament::before, .ornament::after { content: ''; width: 80px; height: 1px; }
+  .ornament::before { background: linear-gradient(to right, transparent, rgba(107,78,140,0.2)); }
+  .ornament::after  { background: linear-gradient(to left,  transparent, rgba(107,78,140,0.2)); }
+  .ornament span { font-size: 18px; opacity: 0.5; }
 
-  .check-item.checked .checkbox {
-    background: var(--sage);
-    border-color: var(--sage);
-  }
-
-  .check-label {
-    font-size: 14px;
-    line-height: 1.65;
-    color: var(--text-mid);
-    font-weight: 400;
-    padding-top: 2px;
-  }
-
-  .check-item.checked .check-label {
-    color: #3D6640;
-    font-weight: 500;
-  }
-
-  /* ── ORNAMENT ── */
-  .ornament {
-    text-align: center;
-    margin: 32px 0 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .ornament::before, .ornament::after {
-    content: '';
-    width: 80px;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(107,78,140,0.2));
-  }
-
-  .ornament::after {
-    background: linear-gradient(to left, transparent, rgba(107,78,140,0.2));
-  }
-
-  .ornament span {
-    font-size: 18px;
-    opacity: 0.5;
-  }
-
-  /* ── RESULTS ── */
-  .results-panel {
-    display: none;
-    animation: fadeUp 0.7s ease both;
-  }
-
-  .results-panel.visible { display: block; }
-
-  .result-card {
-    border-radius: 24px;
-    padding: 38px 40px;
-    margin-bottom: 24px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .result-card.mild {
-    background: linear-gradient(135deg, #EBF3EB 0%, #F4F9F4 100%);
-    border: 1.5px solid rgba(122,158,126,0.3);
-  }
-
-  .result-card.moderate {
-    background: linear-gradient(135deg, var(--purple-pale) 0%, #F5F0FA 100%);
-    border: 1.5px solid rgba(107,78,140,0.2);
-  }
-
-  .result-card.significant {
-    background: linear-gradient(135deg, #F9EDE5 0%, #FBF3EE 100%);
-    border: 1.5px solid rgba(201,149,108,0.3);
-  }
-
-  .result-emoji {
-    font-size: 44px;
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  .result-level {
-    font-family: 'Playfair Display', serif;
-    font-size: 30px;
-    font-weight: 700;
-    margin-bottom: 14px;
-    color: var(--purple-deep);
-  }
-
-  .result-desc {
-    font-size: 15px;
-    line-height: 1.85;
-    color: var(--text-mid);
-    font-weight: 400;
-    margin-bottom: 22px;
-  }
-
-  .result-desc strong { color: var(--purple); font-weight: 600; }
-
-  .result-list {
-    list-style: none;
-    margin-bottom: 10px;
-  }
-
-  .result-list li {
-    font-size: 14px;
-    color: var(--text-mid);
-    padding: 8px 0 8px 24px;
-    position: relative;
-    font-weight: 400;
-    line-height: 1.65;
-    border-bottom: 1px solid rgba(107,78,140,0.07);
-  }
-
-  .result-list li:last-child { border-bottom: none; }
-
-  .result-list li::before {
-    content: '✦';
-    position: absolute;
-    left: 0;
-    color: var(--rose-gold);
-    font-size: 11px;
-    top: 10px;
-  }
-
-  /* ── CTA BOX ── */
-  .cta-box {
-    background: linear-gradient(135deg, var(--purple-deep) 0%, #2E1A48 100%);
+  /* EMAIL GATE */
+  .email-gate {
+    background: var(--white);
     border-radius: 24px;
     padding: 44px 40px;
     text-align: center;
-    margin-top: 28px;
+    box-shadow: 0 8px 40px rgba(107,78,140,0.12);
+    border: 1.5px solid rgba(107,78,140,0.12);
+    margin-top: 32px;
     position: relative;
     overflow: hidden;
   }
 
-  .cta-box::before {
+  .email-gate::before {
     content: '';
     position: absolute;
-    top: -40px;
-    right: -40px;
-    width: 180px;
-    height: 180px;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
     border-radius: 50%;
-    background: rgba(201,149,108,0.1);
+    background: var(--purple-pale);
+    opacity: 0.5;
   }
 
-  .cta-box::after {
-    content: '';
-    position: absolute;
-    bottom: -50px;
-    left: -30px;
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    background: rgba(122,158,126,0.08);
-  }
+  .gate-emoji { font-size: 48px; margin-bottom: 18px; display: block; position: relative; z-index: 1; }
 
-  .cta-box h3 {
+  .gate-title {
     font-family: 'Playfair Display', serif;
-    font-size: 30px;
-    font-weight: 700;
-    color: white;
+    font-size: 28px; font-weight: 700;
+    color: var(--purple-deep);
+    margin-bottom: 12px; line-height: 1.2;
+    position: relative; z-index: 1;
+  }
+
+  .gate-title em { font-style: italic; color: var(--rose-gold); }
+
+  .gate-subtitle {
+    font-size: 14px; color: var(--text-mid);
+    line-height: 1.8; margin-bottom: 30px;
+    max-width: 420px; margin-left: auto; margin-right: auto;
+    position: relative; z-index: 1;
+  }
+
+  .gate-form { position: relative; z-index: 1; }
+
+  .gate-field {
+    width: 100%; padding: 15px 20px;
+    border: 1.5px solid rgba(107,78,140,0.2);
+    border-radius: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px; color: var(--text-dark);
+    background: var(--cream);
     margin-bottom: 12px;
-    line-height: 1.25;
-    position: relative;
-    z-index: 1;
+    transition: border-color 0.2s ease;
+    outline: none;
   }
 
-  .cta-box h3 em {
-    font-style: italic;
-    color: var(--rose-gold);
+  .gate-field:focus { border-color: var(--purple-light); background: white; }
+  .gate-field::placeholder { color: var(--text-soft); }
+
+  .btn-gate {
+    width: 100%;
+    background: linear-gradient(135deg, var(--purple) 0%, var(--purple-deep) 100%);
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px; font-weight: 700;
+    padding: 17px 32px;
+    border-radius: 12px; border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 24px rgba(107,78,140,0.35);
+    letter-spacing: 0.03em;
   }
 
-  .cta-box p {
-    font-size: 14px;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.8;
-    margin-bottom: 30px;
-    font-weight: 400;
-    max-width: 460px;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    z-index: 1;
+  .btn-gate:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(107,78,140,0.45); }
+  .btn-gate:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+  .gate-privacy { font-size: 11px; color: var(--text-soft); margin-top: 12px; letter-spacing: 0.03em; }
+
+  .gate-error {
+    background: #FEE8E8; color: #C0392B;
+    border-radius: 8px; padding: 10px 16px;
+    font-size: 13px; margin-bottom: 12px;
+    display: none;
   }
+
+  /* RESULTS */
+  .results-panel { display: none; }
+  .results-panel.visible { display: block; animation: fadeUp 0.7s ease both; }
+
+  .result-card { border-radius: 24px; padding: 38px 40px; margin-bottom: 24px; }
+  .result-card.mild     { background: linear-gradient(135deg, #EBF3EB 0%, #F4F9F4 100%); border: 1.5px solid rgba(122,158,126,0.3); }
+  .result-card.moderate { background: linear-gradient(135deg, var(--purple-pale) 0%, #F5F0FA 100%); border: 1.5px solid rgba(107,78,140,0.2); }
+  .result-card.significant { background: linear-gradient(135deg, #F9EDE5 0%, #FBF3EE 100%); border: 1.5px solid rgba(201,149,108,0.3); }
+
+  .result-emoji { font-size: 44px; margin-bottom: 16px; display: block; }
+  .result-level { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; margin-bottom: 14px; color: var(--purple-deep); }
+  .result-desc { font-size: 15px; line-height: 1.85; color: var(--text-mid); margin-bottom: 22px; }
+  .result-desc strong { color: var(--purple); font-weight: 600; }
+
+  .result-list { list-style: none; }
+  .result-list li { font-size: 14px; color: var(--text-mid); padding: 8px 0 8px 24px; position: relative; line-height: 1.65; border-bottom: 1px solid rgba(107,78,140,0.07); }
+  .result-list li:last-child { border-bottom: none; }
+  .result-list li::before { content: '✦'; position: absolute; left: 0; color: var(--rose-gold); font-size: 11px; top: 10px; }
+
+  /* CTA */
+  .cta-box {
+    background: linear-gradient(135deg, var(--purple-deep) 0%, #2E1A48 100%);
+    border-radius: 24px; padding: 44px 40px;
+    text-align: center; margin-top: 28px;
+    position: relative; overflow: hidden;
+  }
+
+  .cta-box::before { content: ''; position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; border-radius: 50%; background: rgba(201,149,108,0.1); }
+  .cta-box::after  { content: ''; position: absolute; bottom: -50px; left: -30px; width: 140px; height: 140px; border-radius: 50%; background: rgba(122,158,126,0.08); }
+
+  .cta-box h3 { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; color: white; margin-bottom: 12px; line-height: 1.25; position: relative; z-index: 1; }
+  .cta-box h3 em { font-style: italic; color: var(--rose-gold); }
+  .cta-box p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 30px; max-width: 460px; margin-left: auto; margin-right: auto; position: relative; z-index: 1; }
 
   .btn-cta {
     display: inline-block;
     background: linear-gradient(135deg, var(--rose-gold) 0%, #B8845A 100%);
-    color: white;
-    font-family: 'Nunito', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    padding: 17px 44px;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    color: white; font-family: 'Nunito', sans-serif;
+    font-size: 15px; font-weight: 700;
+    padding: 17px 44px; border-radius: 50px; border: none;
+    cursor: pointer; transition: all 0.3s ease;
     box-shadow: 0 6px 28px rgba(201,149,108,0.45);
-    text-decoration: none;
-    position: relative;
-    z-index: 1;
-    letter-spacing: 0.03em;
+    text-decoration: none; position: relative; z-index: 1;
   }
 
-  .btn-cta:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 36px rgba(201,149,108,0.55);
-  }
+  .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(201,149,108,0.55); }
 
-  .btn-reset {
-    background: none;
-    border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.55);
-    font-size: 12px;
-    font-family: 'Nunito', sans-serif;
-    padding: 10px 26px;
-    border-radius: 50px;
-    cursor: pointer;
-    margin: 14px auto 0;
-    transition: all 0.2s;
-    display: block;
-    position: relative;
-    z-index: 1;
-  }
+  .btn-reset { background: none; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.55); font-size: 12px; font-family: 'Nunito', sans-serif; padding: 10px 26px; border-radius: 50px; cursor: pointer; margin: 14px auto 0; transition: all 0.2s; display: block; position: relative; z-index: 1; }
+  .btn-reset:hover { border-color: rgba(255,255,255,0.4); color: white; }
 
-  .btn-reset:hover {
-    border-color: rgba(255,255,255,0.4);
-    color: white;
-  }
-
-  /* ── PAGE SYSTEM ── */
-  .page { display: none; }
-  .page.active { display: block; }
-
-  /* ── FOOTER ── */
-  .footer {
-    text-align: center;
-    padding-top: 48px;
-    font-size: 11px;
-    color: var(--text-soft);
-    letter-spacing: 0.04em;
-    line-height: 1.8;
-  }
-
+  /* FOOTER */
+  .footer { text-align: center; padding-top: 48px; font-size: 11px; color: var(--text-soft); letter-spacing: 0.04em; line-height: 1.8; }
   .footer strong { color: var(--purple-light); }
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(22px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
 
-  .section:nth-child(1) { animation-delay: 0.05s; }
-  .section:nth-child(2) { animation-delay: 0.10s; }
-  .section:nth-child(3) { animation-delay: 0.15s; }
-  .section:nth-child(4) { animation-delay: 0.20s; }
-  .section:nth-child(5) { animation-delay: 0.25s; }
-  .section:nth-child(6) { animation-delay: 0.30s; }
+  .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 8px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 <div class="container">
 
-  <!-- ══ COVER PAGE ══ -->
+  <!-- COVER -->
   <div id="page-cover" class="page active">
     <div class="cover">
       <div class="brand-pill">✦ Hormone Harmony ✦</div>
@@ -623,7 +380,7 @@
     </div>
   </div>
 
-  <!-- ══ CHECKER PAGE ══ -->
+  <!-- CHECKER -->
   <div id="page-checker" class="page">
 
     <div class="intro-box">
@@ -636,9 +393,7 @@
         <div class="score-label-text">Symptoms Checked</div>
         <div class="score-number"><span id="score-display">0</span> <span>/ 30</span></div>
       </div>
-      <div class="score-bar-bg">
-        <div class="score-bar-fill" id="score-bar"></div>
-      </div>
+      <div class="score-bar-bg"><div class="score-bar-fill" id="score-bar"></div></div>
       <div class="score-hint" id="score-hint">Check every symptom you recognise in yourself ↓</div>
     </div>
 
@@ -646,10 +401,7 @@
     <div class="section">
       <div class="section-header">
         <div class="section-icon" style="background:#FEF0E8;">🔋</div>
-        <div>
-          <div class="section-title">Energy & Fatigue</div>
-          <div class="section-subtitle">How your body manages fuel and rest</div>
-        </div>
+        <div><div class="section-title">Energy & Fatigue</div><div class="section-subtitle">How your body manages fuel and rest</div></div>
       </div>
       <div class="checklist">
         <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I feel exhausted even after a full night's sleep</div></div>
@@ -664,10 +416,7 @@
     <div class="section">
       <div class="section-header">
         <div class="section-icon" style="background:var(--purple-pale);">🧠</div>
-        <div>
-          <div class="section-title">Brain & Mental Clarity</div>
-          <div class="section-subtitle">Cognitive function and focus</div>
-        </div>
+        <div><div class="section-title">Brain & Mental Clarity</div><div class="section-subtitle">Cognitive function and focus</div></div>
       </div>
       <div class="checklist">
         <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I walk into a room and forget why I'm there</div></div>
@@ -682,10 +431,7 @@
     <div class="section">
       <div class="section-header">
         <div class="section-icon" style="background:#F5EEFA;">💜</div>
-        <div>
-          <div class="section-title">Mood & Emotions</div>
-          <div class="section-subtitle">Your emotional landscape day-to-day</div>
-        </div>
+        <div><div class="section-title">Mood & Emotions</div><div class="section-subtitle">Your emotional landscape day-to-day</div></div>
       </div>
       <div class="checklist">
         <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I feel irritable or snappy over small things</div></div>
@@ -700,10 +446,7 @@
     <div class="section">
       <div class="section-header">
         <div class="section-icon" style="background:var(--sage-pale);">😴</div>
-        <div>
-          <div class="section-title">Sleep</div>
-          <div class="section-subtitle">Quality and patterns of your rest</div>
-        </div>
+        <div><div class="section-title">Sleep</div><div class="section-subtitle">Quality and patterns of your rest</div></div>
       </div>
       <div class="checklist">
         <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I struggle to fall asleep even when I'm exhausted</div></div>
@@ -717,10 +460,7 @@
     <div class="section">
       <div class="section-header">
         <div class="section-icon" style="background:var(--rose-light);">⚖️</div>
-        <div>
-          <div class="section-title">Body & Weight</div>
-          <div class="section-subtitle">Physical changes you may have noticed</div>
-        </div>
+        <div><div class="section-title">Body & Weight</div><div class="section-subtitle">Physical changes you may have noticed</div></div>
       </div>
       <div class="checklist">
         <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">I'm gaining weight especially around my belly despite clean eating</div></div>
@@ -735,10 +475,7 @@
     <div class="section">
       <div class="section-header">
         <div class="section-icon" style="background:#FEF5EC;">🌡️</div>
-        <div>
-          <div class="section-title">Cycle & Hormonal Signals</div>
-          <div class="section-subtitle">Your body's direct hormonal communication</div>
-        </div>
+        <div><div class="section-title">Cycle & Hormonal Signals</div><div class="section-subtitle">Your body's direct hormonal communication</div></div>
       </div>
       <div class="checklist">
         <div class="check-item" onclick="toggle(this)"><div class="checkbox"></div><div class="check-label">My periods have become irregular, heavier or more painful</div></div>
@@ -751,12 +488,21 @@
 
     <div class="ornament"><span>✦</span></div>
 
-    <div style="text-align:center; animation: fadeUp 0.6s ease both;">
-      <button class="btn-start" onclick="showResults()">See My Results →</button>
-      <p class="cover-note" style="margin-top:12px;">Your answers are private and never stored</p>
+    <!-- EMAIL GATE -->
+    <div class="email-gate" id="email-gate">
+      <span class="gate-emoji">💜</span>
+      <div class="gate-title">Your Results Are <em>Ready!</em></div>
+      <p class="gate-subtitle">Enter your name and email and I'll show your personalised results instantly — plus send them to your inbox so you have them forever.</p>
+      <div class="gate-form">
+        <div class="gate-error" id="gate-error"></div>
+        <input class="gate-field" type="text"  id="gate-name"  placeholder="Your first name" />
+        <input class="gate-field" type="email" id="gate-email" placeholder="Your best email address" />
+        <button class="btn-gate" id="gate-btn" onclick="submitGate()">Show My Results →</button>
+        <p class="gate-privacy">🔒 Your details are safe. No spam, ever. Unsubscribe anytime.</p>
+      </div>
     </div>
 
-    <!-- ══ RESULTS ══ -->
+    <!-- RESULTS -->
     <div class="results-panel" id="results-panel">
 
       <div id="result-mild" class="result-card mild" style="display:none; margin-top:44px;">
@@ -773,7 +519,7 @@
       <div id="result-moderate" class="result-card moderate" style="display:none; margin-top:44px;">
         <span class="result-emoji">🌸</span>
         <div class="result-level">Noticeable Hormonal Imbalance</div>
-        <p class="result-desc">You checked <strong id="mod-score"></strong>. What you're feeling is real, and it has a name. Your body isn't failing you — it's communicating loudly. This level of imbalance affects thousands of women who are told it's "just stress" or "just aging." It's not. There are clear hormonal patterns behind every symptom you're experiencing.</p>
+        <p class="result-desc">You checked <strong id="mod-score"></strong>. What you're feeling is real, and it has a name. Your body isn't failing you — it's communicating loudly. Thousands of women are told it's "just stress" or "just aging." It's not. There are clear hormonal patterns behind every symptom you're experiencing.</p>
         <ul class="result-list">
           <li>Multiple hormone systems are likely involved — not just one</li>
           <li>Your cortisol, estrogen and/or thyroid may all be out of sync</li>
@@ -785,7 +531,7 @@
       <div id="result-significant" class="result-card significant" style="display:none; margin-top:44px;">
         <span class="result-emoji">💛</span>
         <div class="result-level">Significant Hormonal Disruption</div>
-        <p class="result-desc">You checked <strong id="sig-score"></strong>. First — you are not broken, and you are not alone. What you're living with daily is genuinely hard, and the fact that you're looking for answers shows incredible strength. Your body is not betraying you. It is overwhelmed, and it needs targeted, compassionate support — not more willpower.</p>
+        <p class="result-desc">You checked <strong id="sig-score"></strong>. First — you are not broken, and you are not alone. What you're living with daily is genuinely hard. Your body is not betraying you. It is overwhelmed, and it needs targeted, compassionate support — not more willpower.</p>
         <ul class="result-list">
           <li>Your adrenal, reproductive and metabolic hormones are likely all dysregulated</li>
           <li>Your body has been running on empty for a long time — recovery is absolutely possible</li>
@@ -814,6 +560,9 @@
 </div>
 
 <script>
+  const MAILERLITE_API_KEY  = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNTNhZmI0MjQzM2Y4YTU5YjY4NDAwN2EyZGI4OTY4YTg5ZmM5NGZlZTliNDllMjc1NmFjOThjMGQ3NGVmYmI5OWY0Njc3Y2U2Zjc1YjQxMTQiLCJpYXQiOjE3Nzc0MzgzNjYuMjU5NTY5LCJuYmYiOjE3Nzc0MzgzNjYuMjU5NTcyLCJleHAiOjQ5MzMxMTE5NjYuMjU1NTMsInN1YiI6IjIxOTk2NzMiLCJzY29wZXMiOltdfQ.sZXy-RxaWn1h9YkRyb-0VL84L3raIalBcOCaw0LEQFmrlkB_lEQzGOQp29Sism5aio6m6TB-ahhfrO56ShXkrvMYl8i2QEokDbJWnjj_VVpATB08HcJc5DDvF7OYT4_MVTwk3URta5AmSfsyLq2dhGRrTqiP-byoIEAb0kMobK-Opaj492XqcznRPksk46shCHxzN62X7Pk8N3Ep2pTwsi-u9SRG6oHy_81gH6wDdeQVWAMIR-RBvJ7gyR_L8yhPE3hQvHb0XAurDtHOUWCPsXPbexHIYnqTKwGG9ho6hsO7glEa30jfh8D5Y8a8Zqt58VRaLMsm82eoqYPHL-g7_r15BywBDJ1-3YTUla-_1M2NID1Ka-wqsr69O580qn6QE0brpuYkQ0Tg1Zql4mFfAgnIaXLqB_h679_dndvAzfYq6IiNymZFNhWTtnwZdddhMchRAmW-1c4HekevmmOr36hZAOVcTGVVr_Gs4YLu9St7ql09V1Zsrdg_oXuNRaRjE_r4QjTCDSMp7d8ABMr9F9zOtrGYJasOysXMPzKVe2KfxqGL-K03X-_tyUBAOw9LOMcNYI7Ousx_jmxXGCHsOcCYIvzn1uoCy5WTRzWqpf88YcSuJ27YYmjWwNMD81Sc3nYkRN6BiDRK_eolaHzsBIIyl2j5Y8g10QMQR4yhi0s';
+  const MAILERLITE_GROUP_ID = '186057397123417753';
+
   let total = 0;
   const totalSymptoms = 30;
 
@@ -826,33 +575,82 @@
   function toggle(el) {
     el.classList.toggle('checked');
     const cb = el.querySelector('.checkbox');
-    if (el.classList.contains('checked')) {
-      cb.textContent = '✓';
-      total++;
-    } else {
-      cb.textContent = '';
-      total--;
-    }
+    if (el.classList.contains('checked')) { cb.textContent = '✓'; total++; }
+    else { cb.textContent = ''; total--; }
     updateScore();
   }
 
   function updateScore() {
     document.getElementById('score-display').textContent = total;
-    const pct = (total / totalSymptoms) * 100;
-    document.getElementById('score-bar').style.width = pct + '%';
+    document.getElementById('score-bar').style.width = (total / totalSymptoms * 100) + '%';
     const hint = document.getElementById('score-hint');
-    if (total === 0)       hint.textContent = 'Check every symptom you recognise in yourself ↓';
-    else if (total <= 5)   hint.textContent = 'Keep going — be honest with yourself';
-    else if (total <= 12)  hint.textContent = 'Your body is clearly communicating something important';
-    else if (total <= 20)  hint.textContent = 'You\'ve been carrying a lot — you deserve real answers';
-    else                   hint.textContent = 'This is significant. You are not alone in this.';
+    if (total === 0)      hint.textContent = 'Check every symptom you recognise in yourself ↓';
+    else if (total <= 5)  hint.textContent = 'Keep going — be honest with yourself';
+    else if (total <= 12) hint.textContent = 'Your body is clearly communicating something important';
+    else if (total <= 20) hint.textContent = 'You\'ve been carrying a lot — you deserve real answers';
+    else                  hint.textContent = 'This is significant. You are not alone in this.';
   }
 
-  function showResults() {
+  async function submitGate() {
+    const name  = document.getElementById('gate-name').value.trim();
+    const email = document.getElementById('gate-email').value.trim();
+    const errorEl = document.getElementById('gate-error');
+    const btn   = document.getElementById('gate-btn');
+
+    errorEl.style.display = 'none';
+    if (!name)                    { showError('Please enter your first name.');        return; }
+    if (!email || !email.includes('@')) { showError('Please enter a valid email address.'); return; }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>One moment...';
+
+    try {
+      const res = await fetch('https://connect.mailerlite.com/api/subscribers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${MAILERLITE_API_KEY}`
+        },
+        body: JSON.stringify({
+          email,
+          fields: { name },
+          groups: [MAILERLITE_GROUP_ID]
+        })
+      });
+
+      if (res.ok || res.status === 201 || res.status === 200) {
+        showResults(name);
+      } else {
+        const data = await res.json();
+        if (data?.message?.toLowerCase().includes('already')) {
+          showResults(name);
+        } else {
+          showError('Something went wrong. Please try again.');
+          btn.disabled = false;
+          btn.innerHTML = 'Show My Results →';
+        }
+      }
+    } catch (e) {
+      showError('Connection error. Please check your internet and try again.');
+      btn.disabled = false;
+      btn.innerHTML = 'Show My Results →';
+    }
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('gate-error');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  function showResults(name) {
+    document.getElementById('email-gate').style.display = 'none';
+
     const panel = document.getElementById('results-panel');
     panel.classList.add('visible');
-    document.getElementById('result-mild').style.display = 'none';
-    document.getElementById('result-moderate').style.display = 'none';
+
+    document.getElementById('result-mild').style.display       = 'none';
+    document.getElementById('result-moderate').style.display   = 'none';
     document.getElementById('result-significant').style.display = 'none';
 
     if (total <= 7) {
@@ -867,9 +665,7 @@
     }
 
     document.getElementById('cta-box').style.display = 'block';
-    setTimeout(() => {
-      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }
 
   function resetChecker() {
@@ -880,10 +676,15 @@
     });
     updateScore();
     document.getElementById('results-panel').classList.remove('visible');
-    document.getElementById('result-mild').style.display = 'none';
-    document.getElementById('result-moderate').style.display = 'none';
+    document.getElementById('result-mild').style.display        = 'none';
+    document.getElementById('result-moderate').style.display    = 'none';
     document.getElementById('result-significant').style.display = 'none';
-    document.getElementById('cta-box').style.display = 'none';
+    document.getElementById('cta-box').style.display            = 'none';
+    document.getElementById('email-gate').style.display         = 'block';
+    document.getElementById('gate-name').value  = '';
+    document.getElementById('gate-email').value = '';
+    document.getElementById('gate-btn').disabled = false;
+    document.getElementById('gate-btn').innerHTML = 'Show My Results →';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>
